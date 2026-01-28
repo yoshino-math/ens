@@ -1,0 +1,32 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ebox}[2026/01/25 custom ebox package]
+
+\RequirePackage{ascmac}
+    
+\newenvironment{classicalbox}[1]{%
+  \begin{itembox}[l]{\underline{\bf #1}}%
+}{%
+  \end{itembox}\vskip4mm%
+}
+
+\newif\if@ebox@modern\@ebox@modernfalse
+
+\@ifclassloaded{ltjsarticle}{\@ebox@moderntrue}{}
+\@ifclassloaded{ltjsreport}{\@ebox@moderntrue}{}
+\@ifclassloaded{ltjsbook}{\@ebox@moderntrue}{}
+
+\if@ebox@modern
+    \RequirePackage{luatexja}
+    \RequirePackage{tcolorbox}
+    
+    \newenvironment{graybox}[1]{%
+        \begin{tcolorbox}[title={#1}, , colframe=black, colback=white, colbacktitle=gray!15, coltitle=black, fonttitle=\bfseries]%
+    }{%
+        \end{tcolorbox}\vskip3.7mm%
+    }
+    \newenvironment{bluebox}[1]{%
+        \begin{tcolorbox}[title={#1}, , colframe=blue!50!black, colback=white, colbacktitle=blue!10, coltitle=black, fonttitle=\bfseries]%
+    }{%
+        \end{tcolorbox}\vskip3.7mm%
+    }
+\fi

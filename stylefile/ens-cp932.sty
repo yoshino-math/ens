@@ -1,0 +1,125 @@
+%\usepackage{ascmac} % itembox
+\RequirePackage{amsmath,amsfonts,amssymb,amsthm}
+\RequirePackage{tef}
+
+%
+% ヘッダとフッタ
+%
+\def\ensheader{\kamoku\ \kai\ (\date)}
+\RequirePackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\cfoot{\thepage/\pageref{LastPage}}
+
+\makeatletter                                        % デフォルト値の設定
+\ifx\headerright\@undefined
+\newlength{\headerright}\setlength{\headerright}{8mm}\fi    % ヘッダ右余白
+\ifx\footerbottom\@undefined
+\newlength{\footerbottom}\setlength{\footerbottom}{8mm}\fi  % ページ数下余白
+\makeatother
+
+\setlength\voffset{-1in}
+\setlength\headheight{16pt}
+
+% 本文がちょうど中央に来るように調整 (縦)
+\setlength\headsep{0.5\paperheight}
+\addtolength\headsep{-0.5\textheight}
+\addtolength\headsep{-\topmargin}
+\addtolength\headsep{-\headheight}
+
+
+% フッタがちょうど下から\footerbottomの位置に来るように調整
+\setlength\footskip{\paperheight}
+\addtolength\footskip{-\topmargin}
+\addtolength\footskip{-\headheight}
+\addtolength\footskip{-\headsep}
+\addtolength\footskip{-\textheight}
+\addtolength\footskip{-\footerbottom}
+
+% [R]は右端が本文の右端に揃うものであると仮定
+\addtolength\headerright{1in}
+\addtolength\headerright{\hoffset}
+\addtolength\headerright{\oddsidemargin}
+\addtolength\headerright{\textwidth}
+\addtolength\headerright{-\paperwidth}
+\fancyhead[RO]{\ifnum\thepage>1\ensheader\hskip\headerright\fi}
+
+
+%
+% メモ書きのマクロ
+%
+\makeatletter
+\def\textpage#1#2#3{%
+  \def\@page{#2}%
+  \ifx\@page\empty\else#1#2#3\fi%
+}
+\makeatother
+\RequirePackage{ebox}
+\newcommand{\boxtype}[1]{}
+\newenvironment{memo}[2]{\begin{classicalbox}{#1}}{\end{classicalbox}}
+
+
+%
+% 問のマクロ
+%
+\newcounter{toicnt}
+\setcounter{toicnt}{1}
+%\newcommand{\toi}{\vskip -\lastskip\par\vspace{5mm}\noindent 問 \thetoicnt\stepcounter{toicnt}}
+\newenvironment{toi}[1]{\par\vskip 2mm\noindent 問~\thetoicnt\ifx#1\empty\else\,$\heartsuit$\fi.\stepcounter{toicnt}}{\par\vskip -\lastskip\vskip 4mm}
+\newcommand{\toinum}[1]{\setcounter{toicnt}{#1}}
+
+
+%
+% テストモード (名前記入欄などが生成される)
+%
+\newif\iftestmode
+%
+% 演習モード
+%
+\newif\ifenshu
+\enshutrue
+%
+% タイトル
+%
+\newcommand{\mainheader}{
+\begin{center}
+{\LARGE\bf \kamoku\ \iftestmode\else \ifenshu 演習\fi\fi (\nendo 年度 \zenkou{} \kai) }
+\end{center}
+\begin{flushright}
+\date\\[7mm]\iftestmode
+\large\bf \underline{学籍番号 \hspace*{4cm} 氏名 \hspace*{4cm}}\fi
+\end{flushright}
+\iftestmode\thispagestyle{empty}\bigskip\fi
+}
+
+%
+% レポート
+%
+\newcommand{\report}{
+\begin{center}
+-- レポート提出について --
+\end{center}
+上の問題を解いてレポート提出してください(どの問題を提出すべきかは演習の
+時間に指定します). \\
+次回(\jikai)の講義の時間の最初に回収します.
+\begin{enumerate}
+\item[$\bullet$] レポートの表紙に「\kamoku\ \kai」と書き, 学籍番号・名前を記入してください.
+\item[$\bullet$] 二枚以上になる場合はホッチキス(ステープラー)でとめて下さい.
+\end{enumerate}
+}
+
+%
+% 置換群表示マクロ
+%
+\makeatletter
+\def\Perm#1{\@tempcnta\z@ \def\@uresult{}\def\@dresult{}\@tfor \@tempa:=#1\do{%
+    \ifnum\@tempcnta>\z@
+    \edef\@uresult{\@uresult &}\edef\@dresult{\@dresult &}\fi
+    \advance\@tempcnta\@ne
+    \edef\@uresult{\@uresult\the\@tempcnta}%
+    \edef\@dresult{\@dresult\@tempa}}%
+\begin{pmatrix}\@uresult\\\@dresult\end{pmatrix}}
+\makeatother
+
+\RequirePackage{mathcommand}

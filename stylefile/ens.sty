@@ -1,0 +1,9 @@
+% ens.sty: A wrapper style file for ENS project
+% This file must be 100% ASCII to be compatible with both CP932 and UTF-8 engines.
+\RequirePackage{iftex}
+
+\ifLuaTeX
+  \input{ens-utf8.sty}
+\else
+  \input{ens-cp932.sty}
+\fi

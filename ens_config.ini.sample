@@ -1,0 +1,17 @@
+[paths]
+; TeX コンパイラのパスを設定します。
+; 環境変数 PATH が通っている場合は、デフォルト（コマンド名のみ）のままで動作します。
+; フルパスを指定する場合は c:/texlive/.../platex.exe のように記述してください。
+platex = platex
+lualatex = lualatex
+dvipdfmx = dvipdfmx
+
+; スタイルファイル（ens.sty等）があるディレクトリを指定します。
+; 指定しない場合は、プログラムと同じ場所の 'stylefile' フォルダが自動的に使用されます。
+; style_dir = c:/path/to/your/styles
+
+[commands]
+; PDF ビューアを開くためのコマンドを指定します。
+; Windows では 'start'（標準の関連付けで開く）が推奨ですが、
+; 特定のソフトウェアを指定したい場合に書き換えてください。
+pdf_view = start

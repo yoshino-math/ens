@@ -1,0 +1,29 @@
+\makeatletter
+\newlength{\@columnlength}
+
+
+% if #2 divides #1 then #3 else #4.
+\def\divtest#1#2#3#4{%
+\@tempcnta=#1
+\divide \@tempcnta by #2
+\multiply \@tempcnta by #2
+\ifnum\@tempcnta=#1{}#3\else#4\fi}
+
+\newcounter{@tempcntb}
+% 4,0.25,2em
+\newenvironment{colenum}[3]{%
+  \setcounter{@tempcntb}{0}
+  \setlength{\@columnlength}{#2\textwidth}
+  \setlength{\tabcolsep}{0.25em}
+  \addtolength{\@columnlength}{-#3}
+  \addtolength{\@columnlength}{-4\tabcolsep}
+  \begin{center}
+    \def\item[##1]{\ifnum\the@tempcntb>0
+      \divtest{\the@tempcntb}{#1}{\\}{&}\fi\stepcounter{@tempcntb}\hfill
+       ##1 &}
+    \begin{tabular}{*{#1}{p{#3}p{\@columnlength}}}
+}{
+    \end{tabular}
+  \end{center}}
+\makeatother
+\newcommand{\PDFpass}[1]{\AtBeginDocument{\special{pdf:encrypt ownerpw (#1) userpw (#1) length 128 perm 252}}}
