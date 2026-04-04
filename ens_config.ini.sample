@@ -12,6 +12,8 @@ dvipdfmx = dvipdfmx
 
 [commands]
 ; PDF ビューアを開くためのコマンドを指定します。
-; Windows では 'start'（標準の関連付けで開く）が推奨ですが、
+; 例えば Windows では 'start'（標準の関連付けで開く）が推奨ですが、
 ; 特定のソフトウェアを指定したい場合に書き換えてください。
-pdf_view = start
+; 指定しない場合は OS に応じて自動選択されます。
+; default: Windows: start / macOS: open / Linux: xdg-open
+; pdf_view = open
