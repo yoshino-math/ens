@@ -75,9 +75,9 @@
 % 問のマクロ
 %
 \newcounter{toicnt}
-\setcounter{toicnt}{1}
+\setcounter{toicnt}{0}
 %\newcommand{\toi}{\vskip -\lastskip\par\vspace{5mm}\noindent 問 \thetoicnt\stepcounter{toicnt}}
-\newenvironment{toi}[1]{\par\vskip 2mm\noindent 問~\thetoicnt\ifx#1\empty\else\,$\heartsuit$\fi.\stepcounter{toicnt}}{\par\vskip -\lastskip\vskip 4mm}
+\newenvironment{toi}[1]{\refstepcounter{toicnt}\par\vskip 2mm\noindent 問~\thetoicnt\ifx#1\empty\else\,$\heartsuit$\fi.}{\par\vskip -\lastskip\vskip 4mm}
 \newcommand{\toinum}[1]{\setcounter{toicnt}{#1}}
 
 
@@ -133,4 +133,4 @@
 \begin{pmatrix}\@uresult\\\@dresult\end{pmatrix}}
 \makeatother
 
-\RequirePackage{mathcommand}
+\RequirePackage{mcommand}

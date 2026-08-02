@@ -15,5 +15,6 @@ set PYTHONPATH=%ENS_PATH%src;%PYTHONPATH%
 
 :: ens パッケージの chain モジュールを実行します。
 "%PYTHON%" -m ens.chain %*
+if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
 endlocal
