@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 import argparse
 import subprocess
 import configparser
@@ -23,7 +24,14 @@ PLATEX_PATH = config.get('paths', 'platex', fallback='platex')
 DVIPDFMX_PATH = config.get('paths', 'dvipdfmx', fallback='dvipdfmx')
 LUALATEX_PATH = config.get('paths', 'lualatex', fallback='lualatex')
 STYLE_DIR = config.get('paths', 'style_dir', fallback=os.path.join(PROJECT_ROOT, 'stylefile'))
-PDF_VIEW_COMMAND = config.get('commands', 'pdf_view', fallback='start')
+_system = platform.system()
+if _system == "Darwin":
+    _pdf_view_default = "open"
+elif _system == "Linux":
+    _pdf_view_default = "xdg-open"
+else:
+    _pdf_view_default = "start"
+PDF_VIEW_COMMAND = config.get('commands', 'pdf_view', fallback=_pdf_view_default)
 
 def read_file_text(path):
     """ファイルを適切なエンコーディングで読み込み、文字列として返す"""
